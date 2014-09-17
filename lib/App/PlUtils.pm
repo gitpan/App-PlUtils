@@ -1,7 +1,7 @@
 package App::PlUtils;
 
 our $DATE = '2014-09-17'; # DATE
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 use 5.010001;
 use strict;
@@ -22,7 +22,7 @@ App::PlUtils - Command-line utilities related to Perl scripts
 
 =head1 VERSION
 
-This document describes version 0.01 of App::PlUtils (from Perl distribution App-PlUtils), released on 2014-09-17.
+This document describes version 0.02 of App::PlUtils (from Perl distribution App-PlUtils), released on 2014-09-17.
 
 =head1 SYNOPSIS
 

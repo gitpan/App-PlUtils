@@ -2,7 +2,7 @@ NAME
     App::PlUtils - Command-line utilities related to Perl scripts
 
 VERSION
-    This document describes version 0.01 of App::PlUtils (from Perl
+    This document describes version 0.02 of App::PlUtils (from Perl
     distribution App-PlUtils), released on 2014-09-17.
 
 SYNOPSIS
