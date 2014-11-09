@@ -1,0 +1,154 @@
+#!perl
+
+our $DATE = '2014-11-09'; # DATE
+our $VERSION = '0.03'; # VERSION
+
+use 5.010;
+use strict;
+use warnings;
+#use Log::Any '$log';
+
+#use App::PlUtils;
+use App::ProgUtils;
+use File::Which;
+use Perinci::CmdLine::Any -prefer_lite=>1;
+
+our %SPEC;
+$SPEC{plcost} = {
+    v => 1.1,
+    summary => 'Run Perl script with Devel::EndStats',
+    description => <<'_',
+
+
+
+_
+    args => {
+        file => {
+            summary => 'Perl script to run',
+            description => <<'_',
+
+For convenience, if filename does not contain path separator, it will first be
+searched in the current directory, then in `PATH` (using `File::Which`).
+
+_
+            schema  => 'str*',
+            req     => 1,
+            pos     => 0,
+            completion => $App::ProgUtils::_complete_program,
+        },
+        extra_args => {
+            summary => 'Extra arguments to pass to script',
+            schema  => ['array*', of=>'str*'],
+            pos     => 1,
+            greedy  => 1,
+        },
+        hide_core => {
+            schema => 'bool',
+        },
+        sort => {
+            schema => ['str*', in=>[map {($_,"-$_")}
+                                        qw/file time caller order lines/]],
+        },
+        hide_noncore => {
+            schema => 'bool',
+        },
+        show_memsize => {
+            schema => 'bool',
+        },
+    },
+};
+sub plcost {
+    my %args = @_;
+
+    my $de_import = "verbose,1";
+    $de_import .= ",hide_core,1" if $args{hide_core};
+    $de_import .= ",hide_noncore,1" if $args{hide_noncore};
+    $de_import .= ",show_memsize,1,sort,-memsize" if $args{show_memsize};
+    $de_import .= ",sort,$args{sort}" if $args{sort};
+    my @cmd = ($^X, "-MDevel::EndStats=$de_import");
+
+    my $file = $args{file};
+    if (!(-f $file) && $file !~ m!/!) {
+        # search file in PATH
+        $file = which($file);
+    }
+    unless (-f $file) {
+        return [404, "No such file '$args{file}'"];
+    }
+
+    push @cmd, $file, @{ $args{extra_args} // [] };
+
+    #$log->tracef("exec(%s)", \@cmd);
+    exec @cmd;
+    # [200]; # won't get reached
+}
+
+Perinci::CmdLine::Any->new(
+    url => '/main/plcost',
+)->run;
+
+# ABSTRACT: Run Perl script with Devel::EndStats
+# PODNAME: plcost
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+plcost - Run Perl script with Devel::EndStats
+
+=head1 VERSION
+
+This document describes version 0.03 of plcost (from Perl distribution App-PlUtils), released on 2014-11-09.
+
+=head1 SYNOPSIS
+
+ % plcost parse-id-phone
+
+=head1 SEE ALSO
+
+L<pmcost> (from L<App::PMUtils> distribution)
+
+=head1 BASH COMPLETION
+
+This script has bash completion capability.
+
+To activate bash completion for this script, put:
+
+ complete -C plcost plcost
+
+in your bash startup (e.g. C<~/.bashrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. Just execute C<bash-completion-prog> and the C<complete> command will be added in your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/App-PlUtils>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/perlancar/perl-App-PlUtils>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=App-PlUtils>
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+perlancar <perlancar@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by perlancar@cpan.org.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

@@ -1,7 +1,7 @@
 #!perl
 
-our $DATE = '2014-09-17'; # DATE
-our $VERSION = '0.02'; # VERSION
+our $DATE = '2014-11-09'; # DATE
+our $VERSION = '0.03'; # VERSION
 
 use 5.010;
 use strict;
@@ -104,7 +104,7 @@ plsub - List subroutines defined in a Perl script (or module)
 
 =head1 VERSION
 
-This document describes version 0.02 of plsub (from Perl distribution App-PlUtils), released on 2014-09-17.
+This document describes version 0.03 of plsub (from Perl distribution App-PlUtils), released on 2014-11-09.
 
 =head1 SYNOPSIS
 
@@ -132,11 +132,17 @@ Sample output:
  | 96   | as_aoa       |
  +------+--------------+
 
-To active bash completion:
+=head1 BASH COMPLETION
 
- % complete -C plsub plsub; # can be put in bash startup file e.g. .bashrc
- % plsub -m MIME/<tab>
- % plsub -m "MIME::B<tab> ; # use quote (' or ") if you want to use :: as separator
+This script has bash completion capability.
+
+To activate bash completion for this script, put:
+
+ complete -C plsub plsub
+
+in your bash startup (e.g. C<~/.bashrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. Just execute C<bash-completion-prog> and the C<complete> command will be added in your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
 
 =head1 HOMEPAGE
 
