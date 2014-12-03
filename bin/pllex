@@ -1,7 +1,7 @@
 #!perl
 
-our $DATE = '2014-11-09'; # DATE
-our $VERSION = '0.03'; # VERSION
+our $DATE = '2014-12-03'; # DATE
+our $VERSION = '0.04'; # VERSION
 
 use 5.010;
 use strict;
@@ -35,14 +35,14 @@ _
 };
 sub pllex {
     require Compiler::Lexer;
-    require SHARYANTO::Module::Path;
+    require Module::Path::More;
 
     my %args = @_;
     my $path;
     if (defined $args{module}) {
         my $mod = $args{module};
         $mod =~ s/\.pm$//; $mod =~ s!/!::!g; # convenience
-        $path = SHARYANTO::Module::Path::module_path(module=>$mod);
+        $path = Module::Path::More::module_path(module=>$mod);
         die "Can't find module '$mod'" unless $path;
     } elsif (defined $args{file}) {
         $path = $args{file};
@@ -82,7 +82,7 @@ pllex - Tokenize Perl script (or module) using Compiler::Lexer
 
 =head1 VERSION
 
-This document describes version 0.03 of pllex (from Perl distribution App-PlUtils), released on 2014-11-09.
+This document describes version 0.04 of pllex (from Perl distribution App-PlUtils), released on 2014-12-03.
 
 =head1 SYNOPSIS
 
@@ -112,9 +112,11 @@ For more options:
 
  % pllex --help
 
-=head1 BASH COMPLETION
+=head1 COMPLETION
 
-This script has bash completion capability.
+This script has shell tab completion capability with support for several shells.
+
+=head2 bash
 
 To activate bash completion for this script, put:
 
@@ -122,7 +124,33 @@ To activate bash completion for this script, put:
 
 in your bash startup (e.g. C<~/.bashrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
 
-You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. Just execute C<bash-completion-prog> and the C<complete> command will be added in your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
+You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. After you install the module and put C<. ~/.bash-complete-prog> (or C<. /etc/bash-complete-prog>), you can just run C<bash-completion-prog> and the C<complete> command will be added to your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
+
+=head2 fish
+
+To activate fish completion for this script, execute:
+
+ begin; set -lx COMP_SHELL fish; set -lx COMP_MODE gen_command; pllex; end > $HOME/.config/fish/completions/pllex.fish
+
+Or if you want to install globally, you can instead write the generated script to C</etc/fish/completions/pllex.fish> or C</usr/share/fish/completions/pllex.fish>. The exact path might be different on your system. Please check your C<fish_complete_path> variable.
+
+=head2 tcsh
+
+To activate tcsh completion for this script, put:
+
+ complete pllex 'p/*/`pllex`/'
+
+in your tcsh startup (e.g. C<~/.tcshrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+=head2 zsh
+
+To activate zsh completion for this script, put:
+
+ _pllex() { read -l; local cl="$REPLY"; read -ln; local cp="$REPLY"; reply=(`COMP_SHELL=zsh COMP_LINE="$cl" COMP_POINT="$cp" pllex`) }
+
+ compctl -K _pllex pllex
+
+in your zsh startup (e.g. C<~/.zshrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
 
 =head1 HOMEPAGE
 

@@ -2,29 +2,17 @@ NAME
     App::PlUtils - Command-line utilities related to Perl scripts
 
 VERSION
-    This document describes version 0.03 of App::PlUtils (from Perl
-    distribution App-PlUtils), released on 2014-11-09.
+    This document describes version 0.04 of App::PlUtils (from Perl
+    distribution App-PlUtils), released on 2014-12-03.
 
 SYNOPSIS
-    This distribution provides the following command-line utilities:
-
-     pllex
-     plsub
-     pluse
-
-    These utilities have tab completion capability. To activate it, put
-    these lines to your bash startup file (e.g. "/etc/bash.bashrc",
-    "~/.bash_profile", or "~/.bashrc"):
-
-     for p in \
-       pllex plsub pluse; do
-         complete -C $p $p
-     done
+    This distribution provides several command-line utilities related to
+    Perl scripts. The main purpose of these utilities is tab completion.
 
 FAQ
 SEE ALSO
-    App::PMUtils, distribution that provides utilities related to Perl
-    modules.
+    App::PMUtils, a similarly spirited distribution that provides utilities
+    related to Perl modules.
 
 HOMEPAGE
     Please visit the project's homepage at

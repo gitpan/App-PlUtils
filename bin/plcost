@@ -1,7 +1,7 @@
 #!perl
 
-our $DATE = '2014-11-09'; # DATE
-our $VERSION = '0.03'; # VERSION
+our $DATE = '2014-12-03'; # DATE
+our $VERSION = '0.04'; # VERSION
 
 use 5.010;
 use strict;
@@ -102,7 +102,7 @@ plcost - Run Perl script with Devel::EndStats
 
 =head1 VERSION
 
-This document describes version 0.03 of plcost (from Perl distribution App-PlUtils), released on 2014-11-09.
+This document describes version 0.04 of plcost (from Perl distribution App-PlUtils), released on 2014-12-03.
 
 =head1 SYNOPSIS
 
@@ -112,9 +112,11 @@ This document describes version 0.03 of plcost (from Perl distribution App-PlUti
 
 L<pmcost> (from L<App::PMUtils> distribution)
 
-=head1 BASH COMPLETION
+=head1 COMPLETION
 
-This script has bash completion capability.
+This script has shell tab completion capability with support for several shells.
+
+=head2 bash
 
 To activate bash completion for this script, put:
 
@@ -122,7 +124,33 @@ To activate bash completion for this script, put:
 
 in your bash startup (e.g. C<~/.bashrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
 
-You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. Just execute C<bash-completion-prog> and the C<complete> command will be added in your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
+You can also install L<App::BashCompletionProg> which makes it easy to add completion for Perinci::CmdLine-based scripts. After you install the module and put C<. ~/.bash-complete-prog> (or C<. /etc/bash-complete-prog>), you can just run C<bash-completion-prog> and the C<complete> command will be added to your C<~/.bash-completion-prog>. Your next shell session will then recognize tab completion for the command.
+
+=head2 fish
+
+To activate fish completion for this script, execute:
+
+ begin; set -lx COMP_SHELL fish; set -lx COMP_MODE gen_command; plcost; end > $HOME/.config/fish/completions/plcost.fish
+
+Or if you want to install globally, you can instead write the generated script to C</etc/fish/completions/plcost.fish> or C</usr/share/fish/completions/plcost.fish>. The exact path might be different on your system. Please check your C<fish_complete_path> variable.
+
+=head2 tcsh
+
+To activate tcsh completion for this script, put:
+
+ complete plcost 'p/*/`plcost`/'
+
+in your tcsh startup (e.g. C<~/.tcshrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+=head2 zsh
+
+To activate zsh completion for this script, put:
+
+ _plcost() { read -l; local cl="$REPLY"; read -ln; local cp="$REPLY"; reply=(`COMP_SHELL=zsh COMP_LINE="$cl" COMP_POINT="$cp" plcost`) }
+
+ compctl -K _plcost plcost
+
+in your zsh startup (e.g. C<~/.zshrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
 
 =head1 HOMEPAGE
 
