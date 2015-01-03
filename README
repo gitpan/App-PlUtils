@@ -1,39 +1,12 @@
-NAME
-    App::PlUtils - Command-line utilities related to Perl scripts
-
-VERSION
-    This document describes version 0.05 of App::PlUtils (from Perl
-    distribution App-PlUtils), released on 2014-12-28.
-
 SYNOPSIS
+
     This distribution provides several command-line utilities related to
     Perl scripts. The main purpose of these utilities is tab completion.
 
 FAQ
+
 SEE ALSO
+
     App::PMUtils, a similarly spirited distribution that provides utilities
     related to Perl modules.
-
-HOMEPAGE
-    Please visit the project's homepage at
-    <https://metacpan.org/release/App-PlUtils>.
-
-SOURCE
-    Source repository is at <https://github.com/perlancar/perl-App-PlUtils>.
-
-BUGS
-    Please report any bugs or feature requests on the bugtracker website
-    <https://rt.cpan.org/Public/Dist/Display.html?Name=App-PlUtils>
-
-    When submitting a bug or request, please include a test-file or a patch
-    to an existing test-file that illustrates the bug or desired feature.
-
-AUTHOR
-    perlancar <perlancar@cpan.org>
-
-COPYRIGHT AND LICENSE
-    This software is copyright (c) 2014 by perlancar@cpan.org.
-
-    This is free software; you can redistribute it and/or modify it under
-    the same terms as the Perl 5 programming language system itself.
 
